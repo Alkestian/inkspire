@@ -1,0 +1,25 @@
+openapi: 3.1.0
+info:
+  title: Inkspire
+  description: |
+    This app allows for making lists of various types across different media and will eventually have
+    fuzzy searching and rating functionality added to it.
+  version: 0.0.1
+paths:
+  /books:
+    get:
+      summary: Get all books
+      description: Get all books from the list
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+    post:
+      summary:
+      description:
+      parameters:
+      responses:
+    delete:
+
+  /anime:
