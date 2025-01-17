@@ -16,69 +16,74 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                required:
-                  - id
-                  - title
-                  - author
-                properties:
-                  id:
-                    type: integer
-                    minimum: 1
-                  title:
-                    type: string
-                    minLength: 1
-                    maxLength: 50
-                  author:
-                    type: string
-                    minLength: 1
-                    maxLength: 50
-  /books/{bookId}:
-    get:
-      summary: Get a specific book
-      description: Get a specific book by passing its bookId and return the book info
-      parameters:
-        - name: bookId
-          in: path
-          required: true
-          schema:
-            type: integer
-            minimum: 1
+                $ref: "#/components/schemas/Book"
+    post:
+      summary: Add a book
+      description: Add a specific book
+      requestBody:
+        description: Create a new book
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Book"
       responses:
         "200":
           description: Success
           content:
             application/json:
               schema:
-                type: object
-                required:
-                  - id
-                  - title
-                  - author
-                properties:
-                  id:
-                    type: integer
-                    minimum: 1
-                  title:
-                    type: string
-                    minLength: 1
-                    maxLength: 50
-                  author:
-                    type: string
-                    minLength: 1
-                    maxLength: 50
-    post:
-      summary: Add a book
-      description: Add a specific book by bookId
-      parameters:
-        - name: bookId
-          in: path
-          required: true
-          schema:
-            type: integer
-            minimum: 1
-
+                $ref: "#/components/schemas/Book"
+        "405":
+          description: Invalid input
+  /books/{bookId}:
+    get:
+      summary: Get a specific book
+      description: Get a specific book by passing its bookId and return the book info
+      requestBody:
+        description: Create a new book
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Book"
       responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Book"
+        "405":
+          description: Invalid input
     delete:
-
+components:
+  schemas:
+    Book:
+      required:
+        - id
+        - name
+        - author
+      properties:
+        id:
+          type: integer
+          format: int64
+        title:
+          type: string
+          example: The Lusty Argonian Maid
+        author:
+          type: string
+          example: Sandon Branderson
+        series:
+          type: string
+          example: Wheel of Time
+        genre:
+          type: array
+          items:
+            type: string
+            example: ["Fantasy", "Epic", "Thriller"]
+        pages:
+          type: integer
+          example: 1690
+      type: object
   /anime:
