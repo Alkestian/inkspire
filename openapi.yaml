@@ -24,7 +24,7 @@ paths:
                 properties:
                   id:
                     type: integer
-                    format: int32
+                    minimum: 1
                   title:
                     type: string
                     minLength: 1
@@ -33,23 +33,51 @@ paths:
                     type: string
                     minLength: 1
                     maxLength: 50
-  /books/{id}:
+  /books/{bookId}:
     get:
       summary: Get a specific book
-      description: Get a specific book by passing its id and return the book info
+      description: Get a specific book by passing its bookId and return the book info
       parameters:
-        - name: id
+        - name: bookId
           in: path
           required: true
           schema:
             type: integer
-            format: int32
+            minimum: 1
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - id
+                  - title
+                  - author
+                properties:
+                  id:
+                    type: integer
+                    minimum: 1
+                  title:
+                    type: string
+                    minLength: 1
+                    maxLength: 50
+                  author:
+                    type: string
+                    minLength: 1
+                    maxLength: 50
+    post:
+      summary: Add a book
+      description: Add a specific book by bookId
+      parameters:
+        - name: bookId
+          in: path
+          required: true
+          schema:
+            type: integer
             minimum: 1
 
-    post:
-      summary:
-      description:
-      parameters:
       responses:
     delete:
 
