@@ -34,19 +34,14 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Book"
-        "405":
+        "400":
           description: Invalid input
   /books/{bookId}:
     get:
       summary: Get a specific book
       description: Get a specific book by passing its bookId and return the book info
-      requestBody:
-        description: Create a new book
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/Book"
+      parameters:
+        - $ref: "#/components/parameters/BookId"
       responses:
         "200":
           description: Success
@@ -54,9 +49,22 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Book"
-        "405":
-          description: Invalid input
+        "400":
+          description: Invalid input or missing bookId
     delete:
+      summary: Delete a book
+      description: Delete a specific book by bookId
+      parameters:
+        - $ref: "#/components/parameters/BookId"
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Book"
+        "400":
+          description: Invalid input or missing bookId
 components:
   schemas:
     Book:
@@ -86,4 +94,13 @@ components:
           type: integer
           example: 1690
       type: object
+  parameters:
+    BookId:
+      name: bookId
+      in: path
+      required: true
+      description: The ID of the book.
+      schema:
+        type: integer
+        format: int32
   /anime:
