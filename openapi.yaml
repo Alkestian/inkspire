@@ -5,21 +5,43 @@ info:
     This app allows for making lists of various types across different media and will eventually have
     fuzzy searching and rating functionality added to it.
   version: 0.0.1
+tags:
+  - name: Books
+    description: Track read and TBR books
 paths:
   /books:
     get:
       summary: Get all books
       description: Get all books from the list
+      operationId: get-books
+      tags:
+        - Books
+      parameters:
+        - name: status
+          in: query
+          required: false
+          description: Filter books by reading status.
+          schema:
+            type: string
+            enum: [read, to-be-read]
+            example: read
       responses:
         "200":
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Book"
+          $ref: "#/components/responses/SuccessBooks"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/resources/Forbidden"
+        "404":
+          $ref: "#/components/responses/NotFound"
     post:
       summary: Add a book
       description: Add a specific book
+      operationId: add-book
+      tags:
+        - Books
       requestBody:
         description: Create a new book
         required: true
@@ -29,42 +51,124 @@ paths:
               $ref: "#/components/schemas/Book"
       responses:
         "200":
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Book"
+          $ref: "#/components/responses/SuccessBook"
         "400":
-          description: Invalid input
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/resources/Forbidden"
+        "404":
+          $ref: "#/components/responses/NotFound"
   /books/{bookId}:
     get:
       summary: Get a specific book
       description: Get a specific book by passing its bookId and return the book info
+      operationId: get-book
+      tags:
+        - Books
       parameters:
         - $ref: "#/components/parameters/BookId"
       responses:
         "200":
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Book"
+          $ref: "#/components/responses/SuccessBook"
         "400":
-          description: Invalid input or missing bookId
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/resources/Forbidden"
+        "404":
+          $ref: "#/components/responses/NotFound"
     delete:
       summary: Delete a book
       description: Delete a specific book by bookId
+      operationId: delete-book
+      tags:
+        - Books
       parameters:
         - $ref: "#/components/parameters/BookId"
       responses:
         "200":
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Book"
+          $ref: "#/components/responses/SuccessBook"
         "400":
-          description: Invalid input or missing bookId
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/resources/Forbidden"
+        "404":
+          $ref: "#/components/responses/NotFound"
+    put:
+      summary: Replace a book
+      description: Replace an existing book entirely
+      operationId: replace-book
+      tags:
+        - Book
+      parameters:
+        $ref: "#/components/parameters/BookId"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schema/Book"
+      responses:
+        "200":
+          $ref: "#/components/responses/SuccessBook"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/resources/Forbidden"
+        "404":
+          $ref: "#/components/responses/NotFound"
+    patch:
+      summary: Update a book
+      description: Update an fields of an existing bopk
+      operationId: update-book
+      tags:
+        - Book
+      parameters:
+        $ref: "#/components/parameters/BookId"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            title:
+              type: string
+              example: "The Lusty Argonian Maid"
+            author:
+              type: string
+              example: "Sandon Branderson"
+            series:
+              type: string
+              example: "Wheel of Time"
+            genre:
+              type: array
+              items:
+                type: string
+                example: ["Fantasy", "Epic", "Thriller"]
+            pages:
+              type: integer
+              format: int32
+              example: 1690
+            status:
+              type: string
+              enum: [read, to-be-read]
+              description: Indicates whether the book is read or to be read.
+      responses:
+        "200":
+          $ref: "#/components/responses/SuccessBook"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/resources/Forbidden"
+        "404":
+          $ref: "#/components/responses/NotFound"
 components:
   schemas:
     Book:
@@ -75,16 +179,16 @@ components:
       properties:
         id:
           type: integer
-          format: int64
+          format: int32
         title:
           type: string
-          example: The Lusty Argonian Maid
+          example: "The Lusty Argonian Maid"
         author:
           type: string
-          example: Sandon Branderson
+          example: "Sandon Branderson"
         series:
           type: string
-          example: Wheel of Time
+          example: "Wheel of Time"
         genre:
           type: array
           items:
@@ -92,8 +196,44 @@ components:
             example: ["Fantasy", "Epic", "Thriller"]
         pages:
           type: integer
+          format: int32
           example: 1690
+        status:
+          type: string
+          enum: [read, to-be-read]
+          description: Indicates whether the book is read or to be read.
       type: object
+    Problem:
+      type: object
+      xml:
+        name: problem
+        namespace: urn:ietf:rfc:7807
+      properties:
+        type:
+          type: string
+          description: A URI reference that identifies the problem type
+          examples:
+            - https://example.com/probs/out-of-credit
+        title:
+          type: string
+          description: A short, human-readable summary of the problem type
+          examples:
+            - You do not have enough credit.
+        detail:
+          type: string
+          description: A human-readable explanation specific to this occurrence of the problem
+          examples:
+            - Your current balance is 30, but that costs 50.
+        instance:
+          type: string
+          description: A URI reference that identifies the specific occurrence of the problem
+          examples:
+            - /account/12345/msgs/abc
+        status:
+          type: integer
+          description: The HTTP status code
+          examples:
+            - 400
   parameters:
     BookId:
       name: bookId
@@ -103,4 +243,145 @@ components:
       schema:
         type: integer
         format: int32
-  /anime:
+
+  headers:
+    Cache-Control:
+      description: |
+        The Cache-Control header communicates directives for caching mechanisms in both requests and responses. 
+        It is used to specify the caching directives in responses to prevent caches from storing sensitive information.
+      schema:
+        type: string
+        description: A comma-separated list of directives as defined in [RFC 9111](https://www.rfc-editor.org/rfc/rfc9111.html).
+        examples:
+          - max-age=3600
+          - max-age=604800, public
+          - no-store
+          - no-cache
+          - private
+
+    RateLimit:
+      description: |
+        The RateLimit header communicates quota policies. It contains a `limit` to
+        convey the expiring limit, `remaining` to convey the remaining quota units,
+        and `reset` to convey the time window reset time.
+      schema:
+        type: string
+        examples:
+          - limit=10, remaining=0, reset=10
+
+    Retry-After:
+      description: |
+        The Retry-After header indicates how long the user agent should wait before making a follow-up request. 
+        The value is in seconds and can be an integer or a date in the future. 
+        If the value is an integer, it indicates the number of seconds to wait. 
+        If the value is a date, it indicates the time at which the user agent should make a follow-up request.
+      schema:
+        type: string
+      examples:
+        integer:
+          value: "120"
+          summary: Retry after 120 seconds
+        date:
+          value: "Fri, 31 Dec 2021 23:59:59 GMT"
+          summary: Retry after the specified date
+  responses:
+    SuccessBooks:
+      description: Successfully retrieved books.
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: "#/components/schemas/Book"
+    SuccessBook:
+      description: Successfully retrieved, added or deleted a book.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Book"
+    BadRequest:
+      description: Bad Request
+      headers:
+        RateLimit:
+          $ref: "#/components/headers/RateLimit"
+      content:
+        application/problem+json:
+          schema:
+            $ref: "#/components/schemas/Problem"
+          example:
+            type: https://example.com/errors/bad-request
+            title: Bad Request
+            status: 400
+            detail: The request is invalid or missing required parameters.
+    Forbidden:
+      description: Forbidden
+      headers:
+        RateLimit:
+          $ref: "#/components/headers/RateLimit"
+      content:
+        application/problem+json:
+          schema:
+            $ref: "#/components/schemas/Problem"
+          example:
+            type: https://example.com/errors/forbidden
+            title: Forbidden
+            status: 403
+            detail: Access is forbidden with the provided credentials.
+    InternalServerError:
+      description: Internal Server Error
+      headers:
+        RateLimit:
+          $ref: "#/components/headers/RateLimit"
+      content:
+        application/problem+json:
+          schema:
+            $ref: "#/components/schemas/Problem"
+          example:
+            type: https://example.com/errors/internal-server-error
+            title: Internal Server Error
+            status: 500
+            detail: An unexpected error occurred.
+    NotFound:
+      description: Not Found
+      headers:
+        RateLimit:
+          $ref: "#/components/headers/RateLimit"
+      content:
+        application/problem+json:
+          schema:
+            $ref: "#/components/schemas/Problem"
+          example:
+            type: https://example.com/errors/not-found
+            title: Not Found
+            status: 404
+            detail: The requested resource was not found.
+    TooManyRequests:
+      description: Too Many Requests
+      headers:
+        RateLimit:
+          $ref: "#/components/headers/RateLimit"
+        Retry-After:
+          $ref: "#/components/headers/Retry-After"
+      content:
+        application/problem+json:
+          schema:
+            $ref: "#/components/schemas/Problem"
+          example:
+            type: https://example.com/errors/too-many-requests
+            title: Too Many Requests
+            status: 429
+            detail: You have exceeded the rate limit.
+    Unauthorized:
+      description: Unauthorized
+      headers:
+        RateLimit:
+          $ref: "#/components/headers/RateLimit"
+      content:
+        application/problem+json:
+          schema:
+            $ref: "#/components/schemas/Problem"
+          example:
+            type: https://example.com/errors/unauthorized
+            title: Unauthorized
+            status: 401
+            detail: You do not have the necessary permissions.
