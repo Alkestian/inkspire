@@ -330,37 +330,57 @@ components:
           type: string
           format: date-time
           example: "2024-01-30T12:00:00Z"
+    SuccessResponse:
+      type: object
+      properties:
+        data:
+          oneOf:
+            - $ref: "#/components/schemas/Book"
+            - $ref: "#/components/schemas/Author"
+            - $ref: "#/components/schemas/Series"
+            - $ref: "#/components/schemas/Review"
+        metadata:
+          type: object
+          properties:
+            total:
+              type: integer
+              example: 100
+            limit:
+              type: integer
+              example: 10
+            offset:
+              type: integer
+              example: 0
+    CreatedResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: "The unique identifier of the created resource."
+          example: "550e8400-e29b-41d4-a716-446655440000"
+        message:
+          type: string
+          description: "Confirmation message."
+          example: "Resource created successfully."
     Problem:
       type: object
-      xml:
-        name: problem
-        namespace: urn:ietf:rfc:7807
       properties:
         type:
           type: string
-          description: A URI reference that identifies the problem type
-          examples:
-            - https://example.com/probs/out-of-credit
+          description: "A URI reference that identifies the problem type."
         title:
           type: string
-          description: A short, human-readable summary of the problem type
-          examples:
-            - You do not have enough credit.
+          description: "A short, human-readable summary of the problem type."
         detail:
           type: string
-          description: A human-readable explanation specific to this occurrence of the problem
-          examples:
-            - Your current balance is 30, but that costs 50.
+          description: "A human-readable explanation specific to this occurrence of the problem."
         instance:
           type: string
-          description: A URI reference that identifies the specific occurrence of the problem
-          examples:
-            - /account/12345/msgs/abc
+          description: "A URI reference that identifies the specific occurrence of the problem."
         status:
           type: integer
-          description: The HTTP status code
-          examples:
-            - 400
+          description: "The HTTP status code."
   parameters:
     BookId:
       name: bookId
@@ -444,34 +464,30 @@ components:
           value: "Fri, 31 Dec 2021 23:59:59 GMT"
           summary: Retry after the specified date
   responses:
+    "200":
+      description: "Successfully retrieved books."
+      headers:
+        Cache-Control:
+          $ref: "#/components/headers/Cache-Control"
+        RateLimit:
+          $ref: "#/components/headers/RateLimit"
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/SuccessResponse"
+
     "201":
       description: "Resource created successfully."
+      headers:
+        Location:
+          $ref: "#/components/headers/Location"
       content:
         application/json:
           schema:
             $ref: "#/components/schemas/CreatedResponse"
-      headers:
-        Location:
-          description: "URL of the newly created resource."
-          schema:
-            type: string
-            example: "/books/550e8400-e29b-41d4-a716-446655440000"
-    SuccessBooks:
-      description: Successfully retrieved books.
-      content:
-        application/json:
-          schema:
-            type: array
-            items:
-              $ref: "#/components/schemas/Book"
-    SuccessBook:
-      description: Successfully retrieved, added or deleted a book.
-      content:
-        application/json:
-          schema:
-            $ref: "#/components/schemas/Book"
-    BadRequest:
-      description: Bad Request
+
+    "400":
+      description: "Bad Request"
       headers:
         RateLimit:
           $ref: "#/components/headers/RateLimit"
@@ -480,12 +496,13 @@ components:
           schema:
             $ref: "#/components/schemas/Problem"
           example:
-            type: https://example.com/errors/bad-request
-            title: Bad Request
+            type: "https://example.com/errors/bad-request"
+            title: "Bad Request"
             status: 400
-            detail: The request is invalid or missing required parameters.
-    Forbidden:
-      description: Forbidden
+            detail: "The request is invalid or missing required parameters."
+
+    "401":
+      description: "Unauthorized"
       headers:
         RateLimit:
           $ref: "#/components/headers/RateLimit"
@@ -494,12 +511,28 @@ components:
           schema:
             $ref: "#/components/schemas/Problem"
           example:
-            type: https://example.com/errors/forbidden
-            title: Forbidden
+            type: "https://example.com/errors/unauthorized"
+            title: "Unauthorized"
+            status: 401
+            detail: "You do not have the necessary permissions."
+
+    "403":
+      description: "Forbidden"
+      headers:
+        RateLimit:
+          $ref: "#/components/headers/RateLimit"
+      content:
+        application/problem+json:
+          schema:
+            $ref: "#/components/schemas/Problem"
+          example:
+            type: "https://example.com/errors/forbidden"
+            title: "Forbidden"
             status: 403
-            detail: Access is forbidden with the provided credentials.
-    InternalServerError:
-      description: Internal Server Error
+            detail: "Access is forbidden with the provided credentials."
+
+    "404":
+      description: "Not Found"
       headers:
         RateLimit:
           $ref: "#/components/headers/RateLimit"
@@ -508,26 +541,13 @@ components:
           schema:
             $ref: "#/components/schemas/Problem"
           example:
-            type: https://example.com/errors/internal-server-error
-            title: Internal Server Error
-            status: 500
-            detail: An unexpected error occurred.
-    NotFound:
-      description: Not Found
-      headers:
-        RateLimit:
-          $ref: "#/components/headers/RateLimit"
-      content:
-        application/problem+json:
-          schema:
-            $ref: "#/components/schemas/Problem"
-          example:
-            type: https://example.com/errors/not-found
-            title: Not Found
+            type: "https://example.com/errors/not-found"
+            title: "Not Found"
             status: 404
-            detail: The requested resource was not found.
-    TooManyRequests:
-      description: Too Many Requests
+            detail: "The requested resource was not found."
+
+    "429":
+      description: "Too Many Requests"
       headers:
         RateLimit:
           $ref: "#/components/headers/RateLimit"
@@ -538,12 +558,13 @@ components:
           schema:
             $ref: "#/components/schemas/Problem"
           example:
-            type: https://example.com/errors/too-many-requests
-            title: Too Many Requests
+            type: "https://example.com/errors/too-many-requests"
+            title: "Too Many Requests"
             status: 429
-            detail: You have exceeded the rate limit.
-    Unauthorized:
-      description: Unauthorized
+            detail: "You have exceeded the rate limit."
+
+    "500":
+      description: "Internal Server Error"
       headers:
         RateLimit:
           $ref: "#/components/headers/RateLimit"
@@ -552,7 +573,7 @@ components:
           schema:
             $ref: "#/components/schemas/Problem"
           example:
-            type: https://example.com/errors/unauthorized
-            title: Unauthorized
-            status: 401
-            detail: You do not have the necessary permissions.
+            type: "https://example.com/errors/internal-server-error"
+            title: "Internal Server Error"
+            status: 500
+            detail: "An unexpected error occurred."
