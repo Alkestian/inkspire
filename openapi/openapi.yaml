@@ -214,27 +214,107 @@ paths:
           $ref: "#/components/responses/NotFound"
 components:
   schemas:
-    Book:
+    Author:
+      type: object
       required:
         - id
-        - title
-        - author
+        - name
       properties:
         id:
           type: string
           format: uuid
-          description: The unique identifier of the book (system-generated).
+          example: "1a3e4567-e89b-12d3-a456-426614174000"
+        name:
+          type: string
+          example: "Sandon Branderson"
+        birthDate:
+          type: string
+          format: date
+          example: "1975-06-01"
+        nationality:
+          type: string
+          example: "American"
+
+    Series:
+      type: object
+      required:
+        - id
+        - name
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: "2b3e4567-e89b-12d3-a456-426614174000"
+        name:
+          type: string
+          example: "Wheel of Time"
+
+    Genre:
+      type: object
+      required:
+        - id
+        - name
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: "3c3e4567-e89b-12d3-a456-426614174000"
+        name:
+          type: string
+          example: "Fantasy"
+
+    Review:
+      type: object
+      required:
+        - id
+        - bookId
+        - createdAt
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: "4d3e4567-e89b-12d3-a456-426614174000"
+        bookId:
+          type: string
+          format: uuid
+          example: "550e8400-e29b-41d4-a716-446655440000"
+        rating:
+          type: integer
+          format: int32
+          minimum: 1
+          maximum: 5
+          example: 5
+        reviewText:
+          type: string
+          example: "An absolute masterpiece!"
+        createdAt:
+          type: string
+          format: date-time
+          example: "2024-01-30T12:00:00Z"
+
+    Book:
+      type: object
+      required:
+        - id
+        - title
+        - authorId
+      properties:
+        id:
+          type: string
+          format: uuid
           example: "550e8400-e29b-41d4-a716-446655440000"
         title:
           type: string
           example: "The Lusty Argonian Maid"
-        author:
+        authorId:
           type: string
-          example: "Sandon Branderson"
-        series:
+          format: uuid
+          example: "1a3e4567-e89b-12d3-a456-426614174000"
+        seriesId:
           type: string
-          example: "Wheel of Time"
-        genre:
+          format: uuid
+          example: "2b3e4567-e89b-12d3-a456-426614174000"
+        genres:
           type: array
           items:
             type: string
@@ -246,13 +326,10 @@ components:
         status:
           type: string
           enum: [read, to-be-read]
-          description: Indicates whether the book is read or to be read.
         updatedAt:
           type: string
           format: date-time
           example: "2024-01-30T12:00:00Z"
-          description: The timestamp of the last update (system-generated).
-      type: object
     Problem:
       type: object
       xml:
@@ -321,6 +398,12 @@ components:
             example: 0
             offset: 0
   headers:
+    Location:
+      description: "URL of the newly created resource."
+      schema:
+        type: string
+        example: "/books/550e8400-e29b-41d4-a716-446655440000"
+
     Cache-Control:
       description: |
         The Cache-Control header communicates directives for caching mechanisms in both requests and responses. 
@@ -361,6 +444,18 @@ components:
           value: "Fri, 31 Dec 2021 23:59:59 GMT"
           summary: Retry after the specified date
   responses:
+    "201":
+      description: "Resource created successfully."
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/CreatedResponse"
+      headers:
+        Location:
+          description: "URL of the newly created resource."
+          schema:
+            type: string
+            example: "/books/550e8400-e29b-41d4-a716-446655440000"
     SuccessBooks:
       description: Successfully retrieved books.
       content:
