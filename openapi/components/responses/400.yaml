@@ -1,0 +1,14 @@
+400:
+  description: "Bad Request"
+  headers:
+    RateLimit:
+      $ref: "../headers/RateLimit"
+  content:
+    application/problem+json:
+      schema:
+        $ref: "../schemas/Problem"
+      example:
+        type: "https://example.com/errors/bad-request"
+        title: "Bad Request"
+        status: 400
+        detail: "The request is invalid or missing required parameters."

@@ -1,0 +1,11 @@
+200:
+  description: "Successfully retrieved books."
+  headers:
+    Cache-Control:
+      $ref: "../headers/Cache-Control"
+    RateLimit:
+      $ref: "../headers/RateLimit"
+  content:
+    application/json:
+      schema:
+        $ref: "../schemas/SuccessResponse"

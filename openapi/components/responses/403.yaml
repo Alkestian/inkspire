@@ -1,0 +1,14 @@
+403:
+  description: "Forbidden"
+  headers:
+    RateLimit:
+      $ref: "../headers/RateLimit"
+  content:
+    application/problem+json:
+      schema:
+        $ref: "../schemas/Problem"
+      example:
+        type: "https://example.com/errors/forbidden"
+        title: "Forbidden"
+        status: 403
+        detail: "Access is forbidden with the provided credentials."

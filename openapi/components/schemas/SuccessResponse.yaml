@@ -3,10 +3,10 @@ SuccessResponse:
   properties:
     data:
       oneOf:
-        - $ref: "#/components/schemas/Book"
-        - $ref: "#/components/schemas/Author"
-        - $ref: "#/components/schemas/Series"
-        - $ref: "#/components/schemas/Review"
+        - $ref: "../schemas/Book"
+        - $ref: "../schemas/Author"
+        - $ref: "../schemas/Series"
+        - $ref: "../schemas/Review"
     metadata:
       type: object
       properties:

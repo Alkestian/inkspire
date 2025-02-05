@@ -1,0 +1,16 @@
+429:
+  description: "Too Many Requests"
+  headers:
+    RateLimit:
+      $ref: "../headers/RateLimit"
+    Retry-After:
+      $ref: "../headers/Retry-After"
+  content:
+    application/problem+json:
+      schema:
+        $ref: "../schemas/Problem"
+      example:
+        type: "https://example.com/errors/too-many-requests"
+        title: "Too Many Requests"
+        status: 429
+        detail: "You have exceeded the rate limit."

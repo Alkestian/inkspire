@@ -1,0 +1,14 @@
+404:
+  description: "Not Found"
+  headers:
+    RateLimit:
+      $ref: "../headers/RateLimit"
+  content:
+    application/problem+json:
+      schema:
+        $ref: "../schemas/Problem"
+      example:
+        type: "https://example.com/errors/not-found"
+        title: "Not Found"
+        status: 404
+        detail: "The requested resource was not found."

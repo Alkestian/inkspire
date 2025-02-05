@@ -1,0 +1,14 @@
+500:
+  description: "Internal Server Error"
+  headers:
+    RateLimit:
+      $ref: "../headers/RateLimit"
+  content:
+    application/problem+json:
+      schema:
+        $ref: "../schemas/Problem"
+      example:
+        type: "https://example.com/errors/internal-server-error"
+        title: "Internal Server Error"
+        status: 500
+        detail: "An unexpected error occurred."

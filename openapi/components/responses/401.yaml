@@ -1,0 +1,14 @@
+401:
+  description: "Unauthorized"
+  headers:
+    RateLimit:
+      $ref: "../headers/RateLimit"
+  content:
+    application/problem+json:
+      schema:
+        $ref: "../schemas/Problem"
+      example:
+        type: "https://example.com/errors/unauthorized"
+        title: "Unauthorized"
+        status: 401
+        detail: "You do not have the necessary permissions."
