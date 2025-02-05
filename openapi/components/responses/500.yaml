@@ -2,11 +2,11 @@
   description: "Internal Server Error"
   headers:
     RateLimit:
-      $ref: "../headers/RateLimit"
+      $ref: "../headers/RateLimit.yaml"
   content:
     application/problem+json:
       schema:
-        $ref: "../schemas/Problem"
+        $ref: "../schemas/Problem.yaml"
       example:
         type: "https://example.com/errors/internal-server-error"
         title: "Internal Server Error"

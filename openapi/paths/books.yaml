@@ -6,9 +6,9 @@
     tags:
       - Books
     parameters:
-      - $ref: "../components/parameters/limit"
-      - $ref: "../components/parameters/offset"
-      - $ref: "../components/parameters/genre"
+      - $ref: "../components/parameters/limit.yaml"
+      - $ref: "../components/parameters/offset.yaml"
+      - $ref: "../components/parameters/genre.yaml"
       - name: status
         in: query
         required: false
@@ -55,10 +55,10 @@
       content:
         application/json:
           schema:
-            $ref: "../components/schemas/NewBook"
+            $ref: "../components/schemas/NewBook.yaml"
     responses:
       201:
-        $ref: "../components/responses/201.yaml"
+        $ref: "../components/responses/books/201.yaml"
       400:
         $ref: "../components/responses/400.yaml"
       401:

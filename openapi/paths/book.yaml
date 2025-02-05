@@ -6,7 +6,7 @@
     tags:
       - Books
     parameters:
-      - $ref: "../components/parameters/bookId"
+      - $ref: "../components/parameters/bookId.yaml"
     responses:
       200:
         $ref: "../components/responses/book/200.yaml"
@@ -25,7 +25,7 @@
     tags:
       - Books
     parameters:
-      - $ref: "../components/parameters/bookId"
+      - $ref: "../components/parameters/bookId.yaml"
     responses:
       200:
         $ref: "../components/responses/book/200.yaml"
@@ -44,7 +44,7 @@
     tags:
       - Books
     parameters:
-      - $ref: "../components/parameters/bookId"
+      - $ref: "../components/parameters/bookId.yaml"
     requestBody:
       required: true
       content:
@@ -92,7 +92,7 @@
     tags:
       - Books
     parameters:
-      - $ref: "../components/parameters/bookId"
+      - $ref: "../components/parameters/bookId.yaml"
     requestBody:
       required: true
       content:
