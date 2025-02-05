@@ -1,0 +1,21 @@
+SuccessResponse:
+  type: object
+  properties:
+    data:
+      oneOf:
+        - $ref: "#/components/schemas/Book"
+        - $ref: "#/components/schemas/Author"
+        - $ref: "#/components/schemas/Series"
+        - $ref: "#/components/schemas/Review"
+    metadata:
+      type: object
+      properties:
+        total:
+          type: integer
+          example: 100
+        limit:
+          type: integer
+          example: 10
+        offset:
+          type: integer
+          example: 0

@@ -1,0 +1,38 @@
+Book:
+  type: object
+  required:
+    - id
+    - title
+    - authorId
+  properties:
+    id:
+      type: string
+      format: uuid
+      example: "550e8400-e29b-41d4-a716-446655440000"
+    title:
+      type: string
+      example: "The Lusty Argonian Maid"
+    authorId:
+      type: string
+      format: uuid
+      example: "1a3e4567-e89b-12d3-a456-426614174000"
+    seriesId:
+      type: string
+      format: uuid
+      example: "2b3e4567-e89b-12d3-a456-426614174000"
+    genres:
+      type: array
+      items:
+        type: string
+      example: ["Fantasy", "Epic", "Thriller"]
+    pages:
+      type: integer
+      format: int32
+      example: 1690
+    status:
+      type: string
+      enum: [read, to-be-read]
+    updatedAt:
+      type: string
+      format: date-time
+      example: "2024-01-30T12:00:00Z"

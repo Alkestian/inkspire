@@ -1,0 +1,13 @@
+Cache-Control:
+  description: |
+    The Cache-Control header communicates directives for caching mechanisms in both requests and responses. 
+    It is used to specify the caching directives in responses to prevent caches from storing sensitive information.
+  schema:
+    type: string
+    description: A comma-separated list of directives as defined in [RFC 9111](https://www.rfc-editor.org/rfc/rfc9111.html).
+    examples:
+      - max-age=3600
+      - max-age=604800, public
+      - no-store
+      - no-cache
+      - private

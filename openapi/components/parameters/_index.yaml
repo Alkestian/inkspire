@@ -1,0 +1,6 @@
+bookId:
+  $ref: "./bookId.yaml"
+genre:
+  $ref: "./genre.yaml"
+pagination:
+  $ref: "./pagination.yaml"
