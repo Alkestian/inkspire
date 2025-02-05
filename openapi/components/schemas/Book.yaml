@@ -28,6 +28,7 @@ Book:
     pages:
       type: integer
       format: int32
+      minimum: 1
       example: 1690
     status:
       type: string

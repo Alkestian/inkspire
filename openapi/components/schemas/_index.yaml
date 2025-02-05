@@ -8,6 +8,8 @@ Genre:
   $ref: "./Genre.yaml"
 Metadata:
   $ref: "./Metadata.yaml"
+NewBook:
+  $ref: "./NewBook.yaml"
 Problem:
   $ref: "./Problem.yaml"
 Review:

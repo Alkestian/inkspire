@@ -55,7 +55,7 @@
       content:
         application/json:
           schema:
-            $ref: "../components/schemas/Book"
+            $ref: "../components/schemas/NewBook"
     responses:
       201:
         $ref: "../components/responses/201.yaml"

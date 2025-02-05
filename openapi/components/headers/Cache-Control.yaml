@@ -5,9 +5,9 @@ Cache-Control:
   schema:
     type: string
     description: A comma-separated list of directives as defined in [RFC 9111](https://www.rfc-editor.org/rfc/rfc9111.html).
-    examples:
-      - max-age=3600
-      - max-age=604800, public
-      - no-store
-      - no-cache
-      - private
+  examples:
+    - value: max-age=3600
+    - value: max-age=604800, public
+    - value: no-store
+    - value: no-cache
+    - value: private
