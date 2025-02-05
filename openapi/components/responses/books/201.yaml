@@ -2,8 +2,8 @@
   description: "Resource created successfully."
   headers:
     Location:
-      $ref: "../headers/Location"
+      $ref: "../../headers/Location"
   content:
     application/json:
       schema:
-        $ref: "../schemas/CreatedResponse"
+        $ref: "../../schemas/CreatedResponse"

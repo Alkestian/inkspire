@@ -1,0 +1,12 @@
+Metadata:
+  type: object
+  properties:
+    total:
+      type: integer
+      example: 100
+    limit:
+      type: integer
+      example: 10
+    offset:
+      type: integer
+      example: 0

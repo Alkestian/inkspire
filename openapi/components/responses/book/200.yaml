@@ -1,0 +1,18 @@
+200:
+  description: "Successfully retrieved book."
+  headers:
+    Cache-Control:
+      $ref: "../../headers/Cache-Control"
+    RateLimit:
+      $ref: "../../headers/RateLimit"
+  content:
+    application/json:
+      schema:
+        type: object
+        properties:
+          data:
+            type: array
+            items:
+              $ref: "../../schemas/Book"
+          metadata:
+            $ref: "../../schemas/Metadata.yaml"

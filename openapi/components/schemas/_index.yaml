@@ -6,11 +6,11 @@ CreatedResponse:
   $ref: "./CreatedResponse.yaml"
 Genre:
   $ref: "./Genre.yaml"
+Metadata:
+  $ref: "./Metadata.yaml"
 Problem:
   $ref: "./Problem.yaml"
 Review:
   $ref: "./Review.yaml"
 Series:
   $ref: "./Series.yaml"
-SuccessResponse:
-  $ref: "./SuccessResponse.yaml"

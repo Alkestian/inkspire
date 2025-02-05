@@ -1,0 +1,9 @@
+limit:
+  name: limit
+  in: query
+  required: false
+  description: Limit the number of results returned.
+  schema:
+    type: integer
+    example: 10
+    default: 10

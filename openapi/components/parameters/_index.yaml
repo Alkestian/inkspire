@@ -2,5 +2,7 @@ bookId:
   $ref: "./bookId.yaml"
 genre:
   $ref: "./genre.yaml"
-pagination:
-  $ref: "./pagination.yaml"
+limit:
+  $ref: "./limit.yaml"
+offset:
+  $ref: "./offset.yaml"
