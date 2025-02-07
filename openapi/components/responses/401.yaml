@@ -2,11 +2,11 @@
   description: "Unauthorized"
   headers:
     RateLimit:
-      $ref: "../headers/RateLimit.yaml"
+      $ref: "../../headers/RateLimit.yaml"
   content:
     application/problem+json:
       schema:
-        $ref: "../schemas/Problem.yaml"
+        $ref: "../../schemas/Problem.yaml"
       example:
         type: "https://example.com/errors/unauthorized"
         title: "Unauthorized"
