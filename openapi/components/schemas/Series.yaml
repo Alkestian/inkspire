@@ -1,13 +1,12 @@
-Series:
-  type: object
-  required:
-    - id
-    - name
-  properties:
-    id:
-      type: string
-      format: uuid
-      example: "2b3e4567-e89b-12d3-a456-426614174000"
-    name:
-      type: string
-      example: "Wheel of Time"
+type: object
+required:
+  - id
+  - name
+properties:
+  id:
+    type: string
+    format: uuid
+    example: "2b3e4567-e89b-12d3-a456-426614174000"
+  name:
+    type: string
+    example: "Wheel of Time"

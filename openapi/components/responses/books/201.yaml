@@ -1,9 +1,8 @@
-201:
-  description: "Resource created successfully."
-  headers:
-    Location:
-      $ref: "../../headers/Location.yaml"
-  content:
-    application/json:
-      schema:
-        $ref: "../../schemas/CreatedResponse.yaml"
+description: "201 - Resource created successfully."
+headers:
+  Location:
+    $ref: "../../headers/Location.yaml"
+content:
+  application/json:
+    schema:
+      $ref: "../../schemas/CreatedResponse.yaml"

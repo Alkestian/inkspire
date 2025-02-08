@@ -1,8 +1,8 @@
 Cache-Control:
-  $ref: "./Cache-Control.yaml"
+  $ref: "Cache-Control.yaml"
 Location:
-  $ref: "./Location.yaml"
+  $ref: "Location.yaml"
 RateLimit:
-  $ref: "./RateLimit.yaml"
+  $ref: "RateLimit.yaml"
 RetryAfter:
-  $ref: "./RetryAfter.yaml"
+  $ref: "RetryAfter.yaml"

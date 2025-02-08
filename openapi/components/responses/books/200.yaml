@@ -1,18 +1,17 @@
-200:
-  description: "Successfully retrieved books."
-  headers:
-    Cache-Control:
-      $ref: "../../../headers/Cache-Control.yaml"
-    RateLimit:
-      $ref: "../../../headers/RateLimit.yaml"
-  content:
-    application/json:
-      schema:
-        type: object
-        properties:
-          data:
-            type: array
-            items:
-              $ref: "../../../schemas/Book.yaml"
-          metadata:
-            $ref: "../../../schemas/Metadata.yaml"
+description: "200 - Successfully retrieved books."
+headers:
+  Cache-Control:
+    $ref: "../../headers/Cache-Control.yaml"
+  RateLimit:
+    $ref: "../../headers/RateLimit.yaml"
+content:
+  application/json:
+    schema:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: "../../schemas/Book.yaml"
+        metadata:
+          $ref: "../../schemas/Metadata.yaml"

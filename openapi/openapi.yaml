@@ -10,18 +10,18 @@ tags:
     description: Track read and to-be-read books
 paths:
   /books:
-    $ref: "paths/books.yaml"
+    $ref: "./paths/books.yaml"
   /books/{bookId}:
-    $ref: "paths/book.yaml"
+    $ref: "./paths/book.yaml"
 components:
   responses:
-    $ref: "components/responses/_index.yaml"
+    $ref: "./components/responses/_index.yaml"
   parameters:
-    $ref: "components/parameters/_index.yaml"
+    $ref: "./components/parameters/_index.yaml"
   schemas:
-    $ref: "components/schemas/_index.yaml"
+    $ref: "./components/schemas/_index.yaml"
   headers:
-    $ref: "components/headers/_index.yaml"
+    $ref: "C:/Users/Camer/source/repos/inkspire/openapi/components/headers/_index.yaml"
 servers:
   - url: http://localhost:8000/api/v1
     description: Local development server

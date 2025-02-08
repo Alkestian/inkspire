@@ -1,14 +1,13 @@
-500:
-  description: "Internal Server Error"
-  headers:
-    RateLimit:
-      $ref: "../../headers/RateLimit.yaml"
-  content:
-    application/problem+json:
-      schema:
-        $ref: "../../schemas/Problem.yaml"
-      example:
-        type: "https://example.com/errors/internal-server-error"
-        title: "Internal Server Error"
-        status: 500
-        detail: "An unexpected error occurred."
+description: "500 - Internal Server Error"
+headers:
+  RateLimit:
+    $ref: "../headers/RateLimit.yaml"
+content:
+  application/problem+json:
+    schema:
+      $ref: "../schemas/Problem.yaml"
+    example:
+      type: "https://example.com/errors/internal-server-error"
+      title: "Internal Server Error"
+      status: 500
+      detail: "An unexpected error occurred."

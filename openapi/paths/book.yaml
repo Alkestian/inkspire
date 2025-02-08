@@ -1,135 +1,134 @@
-/books/{bookId}:
-  get:
-    summary: Get a specific book
-    description: Get a specific book by passing its bookId and return the book info
-    operationId: get-book
-    tags:
-      - Books
-    parameters:
-      - $ref: "../components/parameters/bookId.yaml"
-    responses:
-      200:
-        $ref: "../components/responses/book/200.yaml"
-      400:
-        $ref: "../components/responses/400.yaml"
-      401:
-        $ref: "../components/responses/401.yaml"
-      403:
-        $ref: "../components/responses/403.yaml"
-      404:
-        $ref: "../components/responses/404.yaml"
-  delete:
-    summary: Delete a book
-    description: Delete a specific book by bookId
-    operationId: delete-book
-    tags:
-      - Books
-    parameters:
-      - $ref: "../components/parameters/bookId.yaml"
-    responses:
-      200:
-        $ref: "../components/responses/book/200.yaml"
-      400:
-        $ref: "../components/responses/400.yaml"
-      401:
-        $ref: "../components/responses/401.yaml"
-      403:
-        $ref: "../components/responses/403.yaml"
-      404:
-        $ref: "../components/responses/404.yaml"
-  put:
-    summary: Replace a book
-    description: Replace an existing book entirely
-    operationId: replace-book
-    tags:
-      - Books
-    parameters:
-      - $ref: "../components/parameters/bookId.yaml"
-    requestBody:
-      required: true
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              title:
+get:
+  summary: Get a specific book
+  description: Get a specific book by passing its bookId and return the book info
+  operationId: get-book
+  tags:
+    - Books
+  parameters:
+    - $ref: "../components/parameters/bookId.yaml"
+  responses:
+    200:
+      $ref: "../components/responses/book/200.yaml"
+    400:
+      $ref: "../components/responses/400.yaml"
+    401:
+      $ref: "../components/responses/401.yaml"
+    403:
+      $ref: "../components/responses/403.yaml"
+    404:
+      $ref: "../components/responses/404.yaml"
+delete:
+  summary: Delete a book
+  description: Delete a specific book by bookId
+  operationId: delete-book
+  tags:
+    - Books
+  parameters:
+    - $ref: "../components/parameters/bookId.yaml"
+  responses:
+    200:
+      $ref: "../components/responses/book/200.yaml"
+    400:
+      $ref: "../components/responses/400.yaml"
+    401:
+      $ref: "../components/responses/401.yaml"
+    403:
+      $ref: "../components/responses/403.yaml"
+    404:
+      $ref: "../components/responses/404.yaml"
+put:
+  summary: Replace a book
+  description: Replace an existing book entirely
+  operationId: replace-book
+  tags:
+    - Books
+  parameters:
+    - $ref: "../components/parameters/bookId.yaml"
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            title:
+              type: string
+              example: "The Lusty Argonian Maid"
+            author:
+              type: string
+              example: "Sandon Branderson"
+            series:
+              type: string
+              example: "Wheel of Time"
+            genre:
+              type: array
+              items:
                 type: string
-                example: "The Lusty Argonian Maid"
-              author:
+              example: ["Fantasy", "Epic", "Thriller"]
+            pages:
+              type: integer
+              format: int32
+              example: 1690
+            status:
+              type: string
+              enum: [read, to-be-read]
+              description: Indicates whether the book is read or to be read.
+  responses:
+    200:
+      $ref: "../components/responses/book/200.yaml"
+    400:
+      $ref: "../components/responses/400.yaml"
+    401:
+      $ref: "../components/responses/401.yaml"
+    403:
+      $ref: "../components/responses/403.yaml"
+    404:
+      $ref: "../components/responses/404.yaml"
+patch:
+  summary: Update a book
+  description: Update fields of an existing book
+  operationId: update-book
+  tags:
+    - Books
+  parameters:
+    - $ref: "../components/parameters/bookId.yaml"
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            title:
+              type: string
+              example: "The Lusty Argonian Maid"
+            author:
+              type: string
+              example: "Sandon Branderson"
+            series:
+              type: string
+              example: "Wheel of Time"
+            genre:
+              type: array
+              items:
                 type: string
-                example: "Sandon Branderson"
-              series:
-                type: string
-                example: "Wheel of Time"
-              genre:
-                type: array
-                items:
-                  type: string
-                example: ["Fantasy", "Epic", "Thriller"]
-              pages:
-                type: integer
-                format: int32
-                example: 1690
-              status:
-                type: string
-                enum: [read, to-be-read]
-                description: Indicates whether the book is read or to be read.
-    responses:
-      200:
-        $ref: "../components/responses/book/200.yaml"
-      400:
-        $ref: "../components/responses/400.yaml"
-      401:
-        $ref: "../components/responses/401.yaml"
-      403:
-        $ref: "../components/responses/403.yaml"
-      404:
-        $ref: "../components/responses/404.yaml"
-  patch:
-    summary: Update a book
-    description: Update fields of an existing book
-    operationId: update-book
-    tags:
-      - Books
-    parameters:
-      - $ref: "../components/parameters/bookId.yaml"
-    requestBody:
-      required: true
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              title:
-                type: string
-                example: "The Lusty Argonian Maid"
-              author:
-                type: string
-                example: "Sandon Branderson"
-              series:
-                type: string
-                example: "Wheel of Time"
-              genre:
-                type: array
-                items:
-                  type: string
-                example: ["Fantasy", "Epic", "Thriller"]
-              pages:
-                type: integer
-                format: int32
-                example: 1690
-              status:
-                type: string
-                enum: [read, to-be-read]
-                description: Indicates whether the book is read or to be read.
-    responses:
-      200:
-        $ref: "../components/responses/book/200.yaml"
-      400:
-        $ref: "../components/responses/400.yaml"
-      401:
-        $ref: "../components/responses/401.yaml"
-      403:
-        $ref: "../components/responses/403.yaml"
-      404:
-        $ref: "../components/responses/404.yaml"
+              example: ["Fantasy", "Epic", "Thriller"]
+            pages:
+              type: integer
+              format: int32
+              example: 1690
+            status:
+              type: string
+              enum: [read, to-be-read]
+              description: Indicates whether the book is read or to be read.
+  responses:
+    200:
+      $ref: "../components/responses/book/200.yaml"
+    400:
+      $ref: "../components/responses/400.yaml"
+    401:
+      $ref: "../components/responses/401.yaml"
+    403:
+      $ref: "../components/responses/403.yaml"
+    404:
+      $ref: "../components/responses/404.yaml"

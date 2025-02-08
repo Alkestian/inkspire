@@ -1,9 +1,8 @@
-offset:
-  name: offset
-  in: query
-  required: false
-  description: Offset the start of the result set.
-  schema:
-    type: integer
-    example: 0
-    default: 0
+name: offset
+in: query
+required: false
+description: Offset the start of the result set.
+schema:
+  type: integer
+  example: 0
+  default: 0

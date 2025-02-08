@@ -1,10 +1,9 @@
-genre:
-  name: genre
-  in: query
-  required: false
-  description: Filter books by multiple genres.
-  schema:
-    type: array
-    items:
-      type: string
-    example: ["Fantasy", "Epic"]
+name: genre
+in: query
+required: false
+description: Filter books by multiple genres.
+schema:
+  type: array
+  items:
+    type: string
+  example: ["Fantasy", "Epic"]

@@ -1,20 +1,19 @@
-Author:
-  type: object
-  required:
-    - id
-    - name
-  properties:
-    id:
-      type: string
-      format: uuid
-      example: "1a3e4567-e89b-12d3-a456-426614174000"
-    name:
-      type: string
-      example: "Sandon Branderson"
-    birthDate:
-      type: string
-      format: date
-      example: "1975-06-01"
-    nationality:
-      type: string
-      example: "American"
+type: object
+required:
+  - id
+  - name
+properties:
+  id:
+    type: string
+    format: uuid
+    example: "1a3e4567-e89b-12d3-a456-426614174000"
+  name:
+    type: string
+    example: "Sandon Branderson"
+  birthDate:
+    type: string
+    format: date
+    example: "1975-06-01"
+  nationality:
+    type: string
+    example: "American"
