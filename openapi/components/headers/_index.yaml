@@ -1,5 +1,5 @@
-Cache-Control:
-  $ref: "Cache-Control.yaml"
+CacheControl:
+  $ref: "CacheControl.yaml"
 Location:
   $ref: "Location.yaml"
 RateLimit:

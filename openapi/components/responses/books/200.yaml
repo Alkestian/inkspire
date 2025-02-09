@@ -1,7 +1,7 @@
 description: "200 - Successfully retrieved books."
 headers:
-  Cache-Control:
-    $ref: "../../headers/Cache-Control.yaml"
+  CacheControl:
+    $ref: "../../headers/CacheControl.yaml"
   RateLimit:
     $ref: "../../headers/RateLimit.yaml"
 content:
