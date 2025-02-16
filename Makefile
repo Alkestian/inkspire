@@ -8,7 +8,7 @@ generate-api: $(GENERATED_API)
 
 $(GENERATED_API): $(OPENAPI_SPEC)
 	@mkdir -p $(GENERATED_DIR)
-	oapi-codegen -generate server,spec -package generated $(OPENAPI_SPEC) > $(GENERATED_API)
+	oapi-codegen -generate chi-server,spec -package gen $(OPENAPI_SPEC) > $(GENERATED_API)
 	@echo "API code generated successfully."
 
 generate-models: $(GENERATED_MODELS)
@@ -16,7 +16,7 @@ generate-models: $(GENERATED_MODELS)
 
 $(GENERATED_MODELS): $(OPENAPI_SPEC)
 	@mkdir -p $(GENERATED_DIR)
-	oapi-codegen -generate types,models -package generated $(OPENAPI_SPEC) > $(GENERATED_MODELS)
+	oapi-codegen -generate types,models -package gen $(OPENAPI_SPEC) > $(GENERATED_MODELS)
 	@echo "Models code generated successfully."
 
 clean:
