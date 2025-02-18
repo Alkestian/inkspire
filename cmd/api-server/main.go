@@ -13,9 +13,12 @@ import (
 
 func main() {
     log.Print("Entering application")
-    if err := new(); err != nil {
-        log.Fatal("error entering app")
+    server := new()
+    if server == nil {
+        log.Fatal("error creating server")
+        return
     }
+    log.Fatal(server.ListenAndServe())
 }
 
 func new() *http.Server {

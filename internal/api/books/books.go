@@ -9,8 +9,8 @@ type BookService struct {
 }
 
 func (b BookService) GetBooks(w http.ResponseWriter, r *http.Request, params gen.GetBooksParams) {
-	// TODO: Implement the logic to get books
-	w.WriteHeader(http.StatusNotImplemented)
+	w.WriteHeader(http.StatusOK)
+	w.Write([]byte("GetBooks endpoint hit"))
 }
 
 func (b BookService) AddBook(w http.ResponseWriter, r *http.Request) {
